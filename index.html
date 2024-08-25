@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro新手教程</title>
+    <style>
+        /* 整体页面风格 */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212; /* 深色背景 */
+            color: #FFFFFF; /* 浅色文字 */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* 顶部标题栏 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-color: #1E1E1E;
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: rgb(128, 120, 238);
+        }
+
+        /* 左侧导航栏 */
+        nav {
+            width: 50px; /* 默认宽度设置为收缩状态 */
+            background-color: #1E1E1E;
+            padding-top: 70px;
+            padding-left: 10px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            border-radius: 10px 0 0 10px; /* 圆角矩形 */
+            transition: width 0.3s; /* 动画效果 */
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        nav.collapsed {
+            width: 50px;
+        }
+
+        nav.expanded {
+            width: 200px;
+        }
+
+        nav a {
+            display: block;
+            color: #FFFFFF;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            transition: background-color 0.3s, color 0.3s; /* 添加文本颜色过渡效果 */
+        }
+
+        nav a:hover, nav a.active {
+            background-color: rgb(39,40,62); /* 底纹颜色 */
+            color: rgb(82, 108, 243); /* 选中文字颜色 */
+        }
+
+        /* 收缩/展开按钮 */
+        .toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            cursor: pointer;
+            background-color: #333333;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        /* 主内容区 */
+        main {
+            flex: 1;
+            padding: 70px 20px 20px 20px;
+            margin-left: 50px; /* 默认内容区域宽度对应收缩状态 */
+            transition: margin-left 0.3s; /* 动画效果 */
+            margin-bottom: 60px; /* 给固定的底部栏留出空间 */
+        }
+
+        nav.expanded ~ main {
+            margin-left: 200px; /* 导航栏展开时调整内容区域位置 */
+        }
+
+        .content {
+            background-color: #222222;
+            padding: 20px;
+            border-radius: 10px; /* 圆角矩形 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-width: 800px; /* 限制内容宽度 */
+            margin: 0 auto; /* 居中显示 */
+        }
+
+        /* 子标题栏样式 */
+        .sub-header {
+            font-size: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* 底部栏样式 */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1E1E1E;
+            text-align: center;
+            padding: 10px 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+            color: #FFFFFF;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 顶部标题栏 -->
+    <header>
+        <h1>Pro新手教程</h1>
+    </header>
+
+    <!-- 左侧导航栏 -->
+    <nav id="sidebar" class="collapsed">
+        <div class="toggle-btn" onclick="toggleSidebar()">☰</div>
+        <a href="#" onclick="loadContent('buying.html', 'Pro购买方法')" id="nav-buying" class="active">购买</a>
+        <a href="#" onclick="loadContent('use.html', 'Pro使用方法')" id="nav-use">使用</a>
+        <a href="#" onclick="loadContent('issues.html', 'Pro常见问题')" id="nav-issues">常见问题</a>
+        <a href="#" onclick="loadContent('contact.html', '联系我们')" id="nav-contact">联系我们</a>
+    </nav>
+
+    <!-- 右侧内容显示区域 -->
+    <main>
+        <!-- 子标题栏 -->
+        <div class="sub-header" id="subHeader">Pro购买方法</div>
+
+        <div id="content" class="content">
+            <!-- 默认加载 home.html 文件内容 -->
+        </div>
+    </main>
+
+    <!-- 底部栏 -->
+    <footer>
+        Copyright © 2024 AMtttt
+    </footer>
+
+    <!-- JavaScript 用于动态内容切换和导航栏收缩 -->
+    <script>
+        // 页面加载时默认加载home.html
+        document.addEventListener("DOMContentLoaded", function() {
+            loadContent('buying.html', 'Pro购买方法');
+        });
+
+        // 动态加载内容文件
+        function loadContent(file, title) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', file, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    document.getElementById('content').innerHTML = xhr.responseText;
+                    document.getElementById('subHeader').textContent = title;
+
+                    // 移除其他导航项的 active 类
+                    var links = document.querySelectorAll('nav a');
+                    links.forEach(function (link) {
+                        link.classList.remove('active');
+                    });
+
+                    // 给当前导航项添加 active 类
+                    var currentLink = document.querySelector('nav a[onclick="loadContent(\'' + file + '\', \'' + title + '\')"]');
+                    currentLink.classList.add('active');
+                }
+            };
+            xhr.send();
+        }
+
+        // 切换导航栏收缩/展开
+        function toggleSidebar() {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
+            sidebar.classList.toggle('expanded');
+        }
+    </script>
+
+</body>
+</html>
