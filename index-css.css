@@ -36,13 +36,13 @@ nav {
     top: 0;
     left: 0;
     bottom: 0;
-    z-index: 100; /* 设置较低的层级，以确保不覆盖其他重要内容 */
+    z-index: 1000; /* 确保导航栏在内容之上 */
     width: 50px; /* 默认宽度 */
     background-color: #1E1E1E;
     padding-top: 70px;
     padding-left: 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    border-radius: 10px 0 0 10px;
+    border-radius: 0;
     transition: width 0.3s ease-in-out; /* 保持动画效果 */
     overflow: hidden;
 }
@@ -128,7 +128,7 @@ main {
 }
 
 nav.expanded ~ main {
-    margin-left: 200px; /* 导航栏展开时，调整内容区域位置 */
+    margin-left: 50px; /* 导航栏展开时，不再挤压内容 */
 }
 
 /* 内容样式 */
