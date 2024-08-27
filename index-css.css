@@ -2,8 +2,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #121212; /* 深色背景 */
-    color: #FFFFFF; /* 浅色文字 */
+    background-color: #121212;
+    color: #FFFFFF;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -31,9 +31,8 @@ header h1 {
 }
 
 /* 左侧导航栏 */
-/* 修改导航栏样式 */
 nav {
-    position: absolute; /* 使导航栏像弹窗一样 */
+    position: fixed; /* 确保导航栏固定在左侧 */
     top: 0;
     left: 0;
     bottom: 0;
@@ -43,51 +42,60 @@ nav {
     padding-top: 70px;
     padding-left: 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    border-radius: 0; /* 去除圆角矩形 */
+    border-radius: 0;
     transition: width 0.3s ease-in-out; /* 保持动画效果 */
     overflow: hidden;
+}
+
+nav.collapsed {
+    width: 50px; /* 收缩状态下的宽度 */
 }
 
 nav.expanded {
     width: 200px; /* 导航栏展开时的宽度 */
 }
 
-/* 右侧内容区不再受导航栏影响 */
-main {
-    flex: 1;
-    padding: 70px 20px 20px 20px;
-    position: relative;
-    margin-bottom: 60px;
-}
-
+/* 导航栏链接样式 */
 nav a {
-    display: flex; /* 改为 flex 布局 */
+    display: flex;
     align-items: center;
     color: #FFFFFF;
     text-decoration: none;
     margin-bottom: 20px;
     padding: 10px 15px;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s; /* 添加文本颜色过渡效果 */
-    overflow: hidden; /* 确保收缩时文本隐藏 */
+    transition: background-color 0.3s, color 0.3s;
+    overflow: hidden;
 }
 
 nav a img {
-    width: 24px; /* 图标宽度 */
-    height: 24px; /* 图标高度 */
-    margin-right: 15px; /* 减少图标与文本之间的间距 */
-    margin-left: -3px; /* 向左移动图标 */
-    vertical-align: middle; /* 使图标与文本垂直对齐 */
-    flex-shrink: 0; /* 确保图标不会缩放 */
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    margin-left: -5px;
+    vertical-align: middle;
+    flex-shrink: 0;
 }
 
-nav.collapsed a span {
-    display: none; /* 收缩时隐藏文本 */
+nav a span {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s, width 0s linear 0.3s;
+}
+
+nav.expanded a span {
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0s, width 0s linear 0s;
 }
 
 nav a:hover, nav a.active {
-    background-color: rgb(39,40,62); /* 底纹颜色 */
-    color: rgb(82, 108, 243); /* 选中文字颜色 */
+    background-color: rgb(39, 40, 62);
+    color: rgb(82, 108, 243);
 }
 
 /* 收缩/展开按钮 */
@@ -101,53 +109,37 @@ nav a:hover, nav a.active {
     border-radius: 10px;
     padding: 10px;
 }
+
 .toggle-btn img {
-    width: 30px; /* 调整图标的宽度 */
-    height: 30px; /* 调整图标的高度 */
+    width: 30px;
+    height: 30px;
     margin-left: auto;
     margin-right: auto;
 }
-
-nav a span {
-    opacity: 0; /* 初始时文本透明 */
-    visibility: hidden; /* 初始时文本不可见 */
-    width: 0; /* 初始时文本宽度为 0 */
-    overflow: hidden; /* 隐藏文本 */
-    white-space: nowrap; /* 防止文本换行 */
-    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s, width 0s linear 0.3s; /* 设置过渡效果 */
-}
-
-/* 导航栏展开后显示文本 */
-nav.expanded a span {
-    opacity: 1; /* 展开后使文本可见 */
-    visibility: visible; /* 确保可见性 */
-    width: auto; /* 恢复文本宽度 */
-    transition: opacity 0.3s ease-in-out, visibility 0s linear 0s, width 0s linear 0s; /* 恢复透明度过渡 */
-}
-
 
 /* 主内容区 */
 main {
     flex: 1;
     padding: 70px 20px 20px 20px;
     margin-left: 50px; /* 默认内容区域宽度对应收缩状态 */
-    transition: margin-left 0.3s; /* 动画效果 */
-    margin-bottom: 60px; /* 给固定的底部栏留出空间 */
-    position: relative; /* 添加相对定位以允许内部元素绝对定位 */
+    transition: margin-left 0.3s ease-in-out; /* 平滑过渡 */
+    margin-bottom: 60px;
+    position: relative;
 }
 
 nav.expanded ~ main {
-    margin-left: 200px; /* 导航栏展开时调整内容区域位置 */
+    margin-left: 50px; /* 导航栏展开时，不再挤压内容 */
 }
 
+/* 内容样式 */
 .content {
     background-color: #222222;
     padding: 20px;
-    border-radius: 10px; /* 圆角矩形 */
+    border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    max-width: 800px; /* 限制内容宽度 */
-    margin: 0 auto; /* 居中显示 */
-    position: relative; /* 确保内容显示区域内定位 */
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
 }
 
 /* 子标题栏样式 */
@@ -173,13 +165,13 @@ footer {
 
 /* 图像旋转并放大效果 */
 .content .image-container {
-    width: 60px; /* 缩小图片尺寸 */
-    height: 60px; /* 缩小图片尺寸 */
-    position: absolute; /* 绝对定位 */
-    top: 10px; /* 距离内容区域顶部10px */
-    right: 10px; /* 距离内容区域右侧10px */
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
     overflow: hidden;
-    border-radius: 50%; /* 圆形图片 */
+    border-radius: 50%;
     transition: transform 0.5s ease-in-out;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
@@ -193,9 +185,9 @@ footer {
 }
 
 .content .image-container:hover {
-    transform: scale(1.2); /* 放大容器 */
+    transform: scale(1.2);
 }
 
 .content .image-container:hover img {
-    transform: rotate(360deg); /* 旋转图片 */
+    transform: rotate(360deg);
 }
