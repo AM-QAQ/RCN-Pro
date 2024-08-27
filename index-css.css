@@ -31,37 +31,58 @@ header h1 {
 }
 
 /* 左侧导航栏 */
+/* 修改导航栏样式 */
 nav {
-    width: 50px; /* 默认宽度设置为收缩状态 */
+    position: absolute; /* 使导航栏像弹窗一样 */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* 确保导航栏在内容之上 */
+    width: 50px; /* 默认宽度 */
     background-color: #1E1E1E;
     padding-top: 70px;
     padding-left: 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    border-radius: 10px 0 0 10px; /* 圆角矩形 */
-    transition: width 0.3s; /* 动画效果 */
+    border-radius: 0; /* 去除圆角矩形 */
+    transition: width 0.3s ease-in-out; /* 保持动画效果 */
     overflow: hidden;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    z-index: 100;
-}
-
-nav.collapsed {
-    width: 50px;
 }
 
 nav.expanded {
-    width: 200px;
+    width: 200px; /* 导航栏展开时的宽度 */
+}
+
+/* 右侧内容区不再受导航栏影响 */
+main {
+    flex: 1;
+    padding: 70px 20px 20px 20px;
+    position: relative;
+    margin-bottom: 60px;
 }
 
 nav a {
-    display: block;
+    display: flex; /* 改为 flex 布局 */
+    align-items: center;
     color: #FFFFFF;
     text-decoration: none;
     margin-bottom: 20px;
     padding: 10px 15px;
     border-radius: 10px;
     transition: background-color 0.3s, color 0.3s; /* 添加文本颜色过渡效果 */
+    overflow: hidden; /* 确保收缩时文本隐藏 */
+}
+
+nav a img {
+    width: 24px; /* 图标宽度 */
+    height: 24px; /* 图标高度 */
+    margin-right: 15px; /* 减少图标与文本之间的间距 */
+    margin-left: -3px; /* 向左移动图标 */
+    vertical-align: middle; /* 使图标与文本垂直对齐 */
+    flex-shrink: 0; /* 确保图标不会缩放 */
+}
+
+nav.collapsed a span {
+    display: none; /* 收缩时隐藏文本 */
 }
 
 nav a:hover, nav a.active {
@@ -80,6 +101,30 @@ nav a:hover, nav a.active {
     border-radius: 10px;
     padding: 10px;
 }
+.toggle-btn img {
+    width: 30px; /* 调整图标的宽度 */
+    height: 30px; /* 调整图标的高度 */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+nav a span {
+    opacity: 0; /* 初始时文本透明 */
+    visibility: hidden; /* 初始时文本不可见 */
+    width: 0; /* 初始时文本宽度为 0 */
+    overflow: hidden; /* 隐藏文本 */
+    white-space: nowrap; /* 防止文本换行 */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s, width 0s linear 0.3s; /* 设置过渡效果 */
+}
+
+/* 导航栏展开后显示文本 */
+nav.expanded a span {
+    opacity: 1; /* 展开后使文本可见 */
+    visibility: visible; /* 确保可见性 */
+    width: auto; /* 恢复文本宽度 */
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0s, width 0s linear 0s; /* 恢复透明度过渡 */
+}
+
 
 /* 主内容区 */
 main {
