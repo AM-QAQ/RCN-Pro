@@ -1,0 +1,156 @@
+/* 全局样式 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212; /* 深色背景 */
+    color: #FFFFFF; /* 浅色文字 */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 顶部标题栏 */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #1E1E1E;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: rgb(128, 120, 238);
+}
+
+/* 左侧导航栏 */
+nav {
+    width: 50px; /* 默认宽度设置为收缩状态 */
+    background-color: #1E1E1E;
+    padding-top: 70px;
+    padding-left: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px 0 0 10px; /* 圆角矩形 */
+    transition: width 0.3s; /* 动画效果 */
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+nav.collapsed {
+    width: 50px;
+}
+
+nav.expanded {
+    width: 200px;
+}
+
+nav a {
+    display: block;
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s; /* 添加文本颜色过渡效果 */
+}
+
+nav a:hover, nav a.active {
+    background-color: rgb(39,40,62); /* 底纹颜色 */
+    color: rgb(82, 108, 243); /* 选中文字颜色 */
+}
+
+/* 收缩/展开按钮 */
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #333333;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* 主内容区 */
+main {
+    flex: 1;
+    padding: 70px 20px 20px 20px;
+    margin-left: 50px; /* 默认内容区域宽度对应收缩状态 */
+    transition: margin-left 0.3s; /* 动画效果 */
+    margin-bottom: 60px; /* 给固定的底部栏留出空间 */
+    position: relative; /* 添加相对定位以允许内部元素绝对定位 */
+}
+
+nav.expanded ~ main {
+    margin-left: 200px; /* 导航栏展开时调整内容区域位置 */
+}
+
+.content {
+    background-color: #222222;
+    padding: 20px;
+    border-radius: 10px; /* 圆角矩形 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 800px; /* 限制内容宽度 */
+    margin: 0 auto; /* 居中显示 */
+    position: relative; /* 确保内容显示区域内定位 */
+}
+
+/* 子标题栏样式 */
+.sub-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* 底部栏样式 */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1E1E1E;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    z-index: 1000;
+}
+
+/* 图像旋转并放大效果 */
+.content .image-container {
+    width: 60px; /* 缩小图片尺寸 */
+    height: 60px; /* 缩小图片尺寸 */
+    position: absolute; /* 绝对定位 */
+    top: 10px; /* 距离内容区域顶部10px */
+    right: 10px; /* 距离内容区域右侧10px */
+    overflow: hidden;
+    border-radius: 50%; /* 圆形图片 */
+    transition: transform 0.5s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content .image-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s ease-in-out;
+    transform-origin: center center;
+}
+
+.content .image-container:hover {
+    transform: scale(1.2); /* 放大容器 */
+}
+
+.content .image-container:hover img {
+    transform: rotate(360deg); /* 旋转图片 */
+}
