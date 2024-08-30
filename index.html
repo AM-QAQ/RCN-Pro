@@ -11,9 +11,6 @@
 
 </head>
 <body>
-
-
-
     <!-- 左侧导航栏 -->
     <nav id="sidebar" class="collapsed">
         <div class="toggle-btn" onclick="toggleSidebar()">
@@ -78,6 +75,11 @@
                     // 给当前导航项添加 active 类
                     var currentLink = document.querySelector('nav a[onclick="loadContent(\'' + file + '\', \'' + title + '\')"]');
                     currentLink.classList.add('active');
+
+                    // 如果加载的是 contact.html，则初始化时间更新函数
+                    if (file === 'contact.html') {
+                        initRuntimeUpdater();
+                    }
                 }
             };
             xhr.send();
@@ -112,6 +114,32 @@
                 });
             }
         });
+
+        // 初始化时间更新函数
+        function initRuntimeUpdater() {
+            const websiteCreationTime = new Date('2024-08-25T18:00:00');
+
+            function updateRuntime() {
+                const now = new Date();
+                const diff = now - websiteCreationTime;
+
+                const diffSeconds = Math.floor(diff / 1000);
+                const seconds = diffSeconds % 60;
+                const diffMinutes = Math.floor(diffSeconds / 60);
+                const minutes = diffMinutes % 60;
+                const diffHours = Math.floor(diffMinutes / 60);
+                const hours = diffHours % 24;
+                const diffDays = Math.floor(diffHours / 24);
+                const days = diffDays % 365;
+                const years = Math.floor(diffDays / 365);
+
+                document.getElementById('runtime').textContent = 
+                    `${years}年${days}天${hours}时${minutes}分${seconds}秒`;
+            }
+
+            setInterval(updateRuntime, 1000);
+            updateRuntime();
+        }
     </script>
 
 </body>
