@@ -147,6 +147,7 @@ nav.expanded ~ main {
     font-size: 20px;
     margin-bottom: 20px;
     text-align: center;
+    color: #646CFF; /* 修改为 #646CFF */
 }
 
 /* 底部栏样式 */
