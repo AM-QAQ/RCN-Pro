@@ -27,7 +27,7 @@ header {
 header h1 {
     margin: 0;
     font-size: 24px;
-    color: rgb(128, 120, 238);
+    color: #646CFF;
 }
 
 /* 左侧导航栏 */
@@ -95,7 +95,7 @@ nav.expanded a span {
 
 nav a:hover, nav a.active {
     background-color: rgb(39, 40, 62);
-    color: rgb(82, 108, 243);
+    color: #646CFF;
 }
 
 /* 收缩/展开按钮 */
