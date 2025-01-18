@@ -1,0 +1,194 @@
+/* 全局样式 */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 顶部标题栏 */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #1E1E1E;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #646CFF;
+}
+
+/* 左侧导航栏 */
+nav {
+    position: fixed; /* 确保导航栏固定在左侧 */
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1000; /* 确保导航栏在内容之上 */
+    width: 50px; /* 默认宽度 */
+    background-color: #1E1E1E;
+    padding-top: 70px;
+    padding-left: 10px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    border-radius: 0;
+    transition: width 0.3s ease-in-out; /* 保持动画效果 */
+    overflow: hidden;
+}
+
+nav.collapsed {
+    width: 50px; /* 收缩状态下的宽度 */
+}
+
+nav.expanded {
+    width: 200px; /* 导航栏展开时的宽度 */
+}
+
+/* 导航栏链接样式 */
+nav a {
+    display: flex;
+    align-items: center;
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    overflow: hidden;
+}
+
+nav a img {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    margin-left: -5px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+nav a span {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s, width 0s linear 0.3s;
+}
+
+nav.expanded a span {
+    opacity: 1;
+    visibility: visible;
+    width: auto;
+    transition: opacity 0.3s ease-in-out, visibility 0s linear 0s, width 0s linear 0s;
+}
+
+nav a:hover, nav a.active {
+    background-color: rgb(39, 40, 62);
+    color: #646CFF;
+}
+
+/* 收缩/展开按钮 */
+.toggle-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+    background-color: #333333;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.toggle-btn img {
+    width: 30px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 主内容区 */
+main {
+    flex: 1;
+    padding: 70px 20px 20px 20px;
+    margin-left: 50px; /* 默认内容区域宽度对应收缩状态 */
+    transition: margin-left 0.3s ease-in-out; /* 平滑过渡 */
+    margin-bottom: 60px;
+    position: relative;
+}
+
+nav.expanded ~ main {
+    margin-left: 50px; /* 导航栏展开时，不再挤压内容 */
+}
+
+/* 内容样式 */
+.content {
+    background-color: #222222;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* 子标题栏样式 */
+.sub-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #646CFF; /* 修改为 #646CFF */
+}
+
+/* 底部栏样式 */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #1E1E1E;
+    text-align: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    z-index: 1000;
+}
+
+/* 图像旋转并放大效果 */
+.content .image-container {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    overflow: hidden;
+    border-radius: 50%;
+    transition: transform 0.5s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.content .image-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.5s ease-in-out;
+    transform-origin: center center;
+}
+
+.content .image-container:hover {
+    transform: scale(1.2);
+}
+
+.content .image-container:hover img {
+    transform: rotate(360deg);
+}

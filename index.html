@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pro新手教程</title>
+    <link rel="icon" href="img/Pro.png" type="image/png" />
+
+    <!-- 引入外部CSS文件 -->
+    <link rel="stylesheet" href="index-css.css" />
+  </head>
+  <body>
+    <!-- 左侧导航栏 -->
+    <nav id="sidebar" class="collapsed">
+      <div class="toggle-btn" onclick="toggleSidebar()">
+        <img src="img/menu-img.png" alt="展开/收缩菜单" />
+      </div>
+      <a
+        href="#"
+        onclick="loadContent('buying.html', 'Pro购买方法')"
+        id="nav-buying"
+        class="active"
+      >
+        <img src="img/buying-img.png" alt="购买图标" /><span>购买</span>
+      </a>
+      <a href="#" onclick="loadContent('use.html', 'Pro使用方法')" id="nav-use">
+        <img src="img/use-img.png" alt="使用图标" /><span>使用</span>
+      </a>
+      <a
+        href="#"
+        onclick="loadContent('issues.html', 'Pro常见问题')"
+        id="nav-issues"
+      >
+        <img src="img/issues-img.png" alt="常见问题图标" /><span>常见问题</span>
+      </a>
+      <a
+        href="#"
+        onclick="loadContent('contact.html', '联系我们')"
+        id="nav-contact"
+      >
+        <img src="img/contact-img.png" alt="联系我们图标" /><span
+          >联系我们</span
+        >
+      </a>
+    </nav>
+
+    <!-- 右侧内容显示区域 -->
+    <main>
+      <!-- 子标题栏 -->
+      <div class="sub-header" id="subHeader">Pro购买方法</div>
+
+      <div id="content" class="content">
+        <!-- 默认加载 buying.html 文件内容 -->
+      </div>
+    </main>
+
+    <!-- 顶部标题栏 -->
+    <header>
+      <h1>Pro新手教程</h1>
+    </header>
+
+    <!-- 底部栏 -->
+    <footer>Copyright © 2024 AMtttt</footer>
+
+    <!-- JavaScript 用于动态内容切换和导航栏收缩 -->
+    <script src="index-js.js"></script>
+  </body>
+</html>
